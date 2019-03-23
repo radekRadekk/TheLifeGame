@@ -1,5 +1,7 @@
 package Field;
 
+import java.util.Set;
+
 public class Cell {
     private byte neighboursNum;
     private boolean alive;
@@ -22,6 +24,15 @@ public class Cell {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public boolean changeState(Set<Byte> liveToLive, Set<Byte> deadToLive) {
+        if (alive && !liveToLive.contains(this.getNeighboursNum())) {
+            alive = false;
+        } else if (!alive && deadToLive.contains(neighboursNum)) {
+            alive = true;
+        }
+        return true;
     }
 
 }

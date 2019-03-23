@@ -16,10 +16,19 @@ public class Game {
 
         int itersNum = 0;
         while (itersNum < configuration.getIterationsNum() && field.isAnyAlive()) {
-//            if (itersNum % Math.round(Math.pow(configuration.getImgCreationFrequency(), -1.0)) == 0) {
-//                Image image = ImageSaver.createImage(field);
-//                ImageSaver.saveImage(image, "C:/Users/rados/Desktop/pictures/picture" + itersNum + ".png");
-//            }
+            if (itersNum % Math.round(Math.pow(configuration.getImgCreationFrequency(), -1.0)) == 0) {
+                int itersTmp = itersNum;
+                new Thread(() -> {
+                    Image image = ImageSaver.createImage(field);
+                    try {
+                        ImageSaver.saveImage(image, "C:/Users/rados/Desktop/pictures/picture" + itersTmp + ".png");
+                    } catch (IOException e) {
+
+                    }
+
+                }).start();
+
+            }
             field.countNeighbours(configuration.getCountingNeighboursMethod());
             field.doGeneration(configuration.getGameRules());
             itersNum++;

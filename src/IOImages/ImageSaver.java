@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class ImageSaver {
 
-    public static Image createImage (GameField gameField) {
+    public static Image createImage(GameField gameField) {
         int height = gameField.getField()[0].length;
         int width = gameField.getField().length;
         Image image = new WritableImage(width, height);

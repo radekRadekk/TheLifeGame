@@ -102,11 +102,7 @@ public class GameField {
         boolean anyAlive = false;
         for (int x = 0; x < field.length; x++) {
             for (int y = 0; y < field[0].length; y++) {
-                if (field[x][y].isAlive() && !liveToLive.contains(field[x][y].getNeighboursNum())) {
-                    field[x][y].setAlive(false);
-                } else if (!field[x][y].isAlive() && deadToLive.contains(field[x][y].getNeighboursNum())) {
-                    field[x][y].setAlive(true);
-                }
+                field[x][y].changeState(liveToLive, deadToLive);
                 if (field[x][y].isAlive())
                     anyAlive = true;
             }
