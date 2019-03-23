@@ -12,16 +12,15 @@ public class GameField {
         return anyAlive;
     }
 
-    public void setAnyAlive(boolean anyAlive) {
-        this.anyAlive = anyAlive;
-    }
-
     public Cell[][] getField() {
         return field;
     }
 
     public GameField(int sizeX, int sizeY) {
         field = new Cell[sizeX][sizeY];
+        for (int x = 0; x < sizeX; x++)
+            for (int y = 0; y < sizeY; y++)
+                field[x][y] = new Cell(false);
         anyAlive = false;
     }
 
@@ -81,7 +80,7 @@ public class GameField {
         if ((x < 0) || (y < 0)) {
             return false;
         }
-        if ((x > field.length) || (y > field[0].length)) {
+        if ((x >= field.length) || (y >= field[0].length)) {
             return false;
         }
         return true;
@@ -138,6 +137,9 @@ public class GameField {
         for (Point point : aliveCellsCoords) {
             field[point.coordX][point.coordY].setAlive(true);
         }
+
+        anyAlive = true;
     }
+
 
 }

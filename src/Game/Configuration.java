@@ -4,7 +4,6 @@ public class Configuration {
     private static final byte DEFAULT_MODE = 1;
     private static final int DEFAULT_FIELD_SIZE_X = 100;
     private static final int DEFAULT_FIELD_SIZE_Y = 100;
-    private static final int DEFAULT_START_ALIVE_CELLS_NUM = 3333;
     private static final int DEFAULT_ITERATIONS_NUM = 100;
     private static final double DEFAULT_IMG_CREATION_FREQUENCY = 0.1;
     private static final String DEFAULT_GAME_RULES = "23/3";
@@ -112,8 +111,8 @@ public class Configuration {
                 this.fieldSizeX = DEFAULT_FIELD_SIZE_X;
             if (this.fieldSizeY <= 0)
                 this.fieldSizeY = DEFAULT_FIELD_SIZE_Y;
-            if (this.startAliveCellsNum < 1)
-                this.startAliveCellsNum = DEFAULT_START_ALIVE_CELLS_NUM;
+            if (this.startAliveCellsNum < 1 || this.startAliveCellsNum > this.fieldSizeX * this.fieldSizeY)
+                this.startAliveCellsNum = (int) (this.fieldSizeX * this.fieldSizeY * 0.33);
             if (this.iterationsNum < 1)
                 this.iterationsNum = DEFAULT_ITERATIONS_NUM;
             if (this.imgCreationFrequency <= 0 || this.imgCreationFrequency > 1)

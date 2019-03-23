@@ -21,7 +21,7 @@ public class ConfigurationFactory {
         //    -r    game rules (pattern ddd/ddd)
         //    -me   counting neighbourhood method
 
-        for (int i = 1; i < args.length - 1; i++) {
+        for (int i = 0; i < args.length - 1; i++) {
             if (args[i].equals("-mo") && args[i + 1].matches("\\d+"))
                 mode = Byte.parseByte(args[i + 1]);
             if (args[i].equals("-x") && args[i + 1].matches("\\d+"))
