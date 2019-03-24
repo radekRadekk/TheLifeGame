@@ -137,5 +137,4 @@ public class GameField {
         anyAlive = true;
     }
 
-
 }

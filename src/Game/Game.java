@@ -18,7 +18,7 @@ public class Game {
         while (itersNum < configuration.getIterationsNum() && field.isAnyAlive()) {
             if (itersNum % Math.round(Math.pow(configuration.getImgCreationFrequency(), -1.0)) == 0) {
                 int itersTmp = itersNum;
-                new Thread(() -> {
+               // new Thread(() -> {
                     Image image = ImageSaver.createImage(field);
                     try {
                         ImageSaver.saveImage(image, "C:/Users/rados/Desktop/pictures/picture" + itersTmp + ".png");
@@ -26,7 +26,7 @@ public class Game {
 
                     }
 
-                }).start();
+               // }).start();
 
             }
             field.countNeighbours(configuration.getCountingNeighboursMethod());
