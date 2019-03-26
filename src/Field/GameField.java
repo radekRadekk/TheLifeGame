@@ -12,6 +12,10 @@ public class GameField {
         return anyAlive;
     }
 
+    public void setAnyAlive(boolean anyAlive) {
+        this.anyAlive = anyAlive;
+    }
+
     public Cell[][] getField() {
         return field;
     }
@@ -22,6 +26,42 @@ public class GameField {
             for (int y = 0; y < sizeY; y++)
                 field[x][y] = new Cell(false);
         anyAlive = false;
+    }
+
+    private GameField(Cell[][] field, boolean anyAlive) {
+        this.field = field;
+        this.anyAlive = anyAlive;
+    }
+
+    public GameField doGeneration(String gameRulesPattern, String countingNeighboursMethod) {
+        Set<Byte> liveToLive = new HashSet<>();
+        Set<Byte> deadToLive = new HashSet<>();
+
+        String[] nums = gameRulesPattern.split("/");
+
+        for (int i = 0; i < nums[0].length(); i++) {
+            liveToLive.add(Byte.parseByte("" + nums[0].charAt(i)));
+        }
+        for (int i = 0; i < nums[1].length(); i++) {
+            deadToLive.add(Byte.parseByte("" + nums[1].charAt(i)));
+        }
+
+        countNeighbours(countingNeighboursMethod);
+
+        GameField copyOfField = new GameField(field.length, field[0].length);
+
+        boolean anyAlive = false;
+        for (int x = 0; x < field.length; x++) {
+            for (int y = 0; y < field[0].length; y++) {
+                field[x][y].changeState(liveToLive, deadToLive);
+                copyOfField.getField()[x][y] = new Cell(field[x][y].isAlive());
+                if (field[x][y].isAlive())
+                    anyAlive = true;
+            }
+        }
+        this.anyAlive = anyAlive;
+
+        return copyOfField;
     }
 
     public void countNeighbours(String methodName) {
@@ -84,31 +124,6 @@ public class GameField {
             return false;
         }
         return true;
-    }
-
-    public void doGeneration(String gameRulesPattern) {
-        Set<Byte> liveToLive = new HashSet<>();
-        Set<Byte> deadToLive = new HashSet<>();
-
-        String[] nums = gameRulesPattern.split("/");
-
-        for (int i = 0; i < nums[0].length(); i++) {
-            liveToLive.add(Byte.parseByte("" + nums[0].charAt(i)));
-        }
-        for (int i = 0; i < nums[1].length(); i++) {
-            deadToLive.add(Byte.parseByte("" + nums[1].charAt(i)));
-        }
-
-        boolean anyAlive = false;
-        for (int x = 0; x < field.length; x++) {
-            for (int y = 0; y < field[0].length; y++) {
-                field[x][y].changeState(liveToLive, deadToLive);
-                if (field[x][y].isAlive())
-                    anyAlive = true;
-            }
-        }
-
-        this.anyAlive = anyAlive;
     }
 
 
